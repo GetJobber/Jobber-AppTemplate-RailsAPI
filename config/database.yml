@@ -23,13 +23,17 @@ default: &default
 
 development:
   <<: *default
-  database: Jobber_AppTemplate_RailsAPI_development
+  database: jobber_apptemplate_railsapi_development
+  host: <%= ENV.fetch('DATABASE_URL') { 'localhost' } %>
+  port: <%= ENV.fetch('DATABASE_PORT') { '5432' } %>
+  username: postgres
+  password: docker
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user running Rails.
-  #username: Jobber_AppTemplate_RailsAPI
+  #username: jobber_apptemplate_railsapi
 
   # The password associated with the postgres role (username).
   #password:
@@ -57,7 +61,11 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: Jobber_AppTemplate_RailsAPI_test
+  database: jobber_apptemplate_railsapi_test
+  host: <%= ENV.fetch('DATABASE_URL') { 'localhost' } %>
+  port: <%= ENV.fetch('DATABASE_PORT') { '5432' } %>
+  username: postgres
+  password: docker
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -81,6 +89,6 @@ test:
 #
 production:
   <<: *default
-  database: Jobber_AppTemplate_RailsAPI_production
-  username: Jobber_AppTemplate_RailsAPI
+  database: jobber_apptemplate_railsapi_production
+  username: jobber_apptemplate_railsapi
   password: <%= ENV['JOBBER_APPTEMPLATE_RAILSAPI_DATABASE_PASSWORD'] %>

@@ -1,0 +1,26 @@
+version: "3.9"
+volumes:
+  jobber_apptemplate_railsapi_db_data:
+  jobber_apptemplate_railsapi_shared_data:
+services:
+  jobber_apptemplate_railsapi_db:
+    image: postgres:13-alpine
+    container_name: jobber_apptemplate_railsapi_db
+    volumes:
+      - jobber_apptemplate_railsapi_db_data:/var/lib/postgresql/data
+      - jobber_apptemplate_railsapi_shared_data:/var/shared
+    environment:
+      POSTGRES_PASSWORD: docker
+    ports:
+      - 5432:5432
+
+  jobber_apptemplate_railsapi_redis:
+    image: redis:alpine
+    container_name: jobber_apptemplate_railsapi_redis
+    command: redis-server
+    volumes:
+      - jobber_apptemplate_railsapi_shared_data:/var/shared/redis
+    ports:
+      - 6379:6379
+    depends_on:
+      - jobber_apptemplate_railsapi_db
