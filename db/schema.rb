@@ -12,7 +12,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2022_06_03_170459) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "jobber_accounts", force: :cascade do |t|
+    t.string("jobber_id")
+    t.string("name")
+    t.string("jobber_access_token")
+    t.datetime("jobber_access_token_expired_by")
+    t.string("jobber_refresh_token")
+    t.datetime("created_at", precision: 6, null: false)
+    t.datetime("updated_at", precision: 6, null: false)
+    t.index(["jobber_id"], name: "index_jobber_accounts_on_jobber_id", unique: true)
+  end
 end
