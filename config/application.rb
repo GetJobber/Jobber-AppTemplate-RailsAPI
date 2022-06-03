@@ -2,7 +2,10 @@
 
 require_relative "boot"
 
-require "rails"
+require "rails/all"
+require "graphql/client"
+require "graphql/client/http"
+
 # Pick the frameworks you want:
 require "active_model/railtie"
 require "active_job/railtie"
@@ -21,7 +24,7 @@ require "action_cable/engine"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module JobberApptemplateRailsapi
+module JobberAppTemplateRailsApi
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults(6.1)
@@ -38,5 +41,29 @@ module JobberApptemplateRailsapi
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    config.x.jobber.client_id = ENV["JOBBER_CLIENT_ID"]
+    config.x.jobber.client_secret = ENV["JOBBER_CLIENT_SECRET"]
+    config.x.jobber.api_url = ENV["JOBBER_API_URL"]
+    config.x.jobber.redirect_uri = ENV["JOBBER_REDIRECT_URI"]
   end
+
+  # Configure GraphQL endpoint using the basic HTTP network adapter.
+  HTTP = GraphQL::Client::HTTP.new("#{ENV["JOBBER_API_URL"]}/graphql") do
+    def headers(context)
+      # Optionally set any HTTP headers
+      context.merge!({ "X-JOBBER-GRAPHQL-VERSION": "2022-03-10" })
+      context
+    end
+  end
+
+  # Fetch latest schema on init, this will make a network request
+  # Schema = GraphQL::Client.load_schema(HTTP)
+
+  # However, it's smart to dump this to a JSON file and load from disk
+  #
+  # Run it from a script or rake task: rake schema:update
+  # GraphQL::Client.dump_schema(JobberAppTemplateRailsApi::HTTP, "db/schema.json")
+  Schema = GraphQL::Client.load_schema("db/schema.json")
+  Client = GraphQL::Client.new(schema: Schema, execute: HTTP)
 end
