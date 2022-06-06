@@ -22,6 +22,8 @@ class AuthController < ApplicationController
     render(status: :ok)
   end
 
+  private
+
   def jobber_service
     JobberService.new
   end
