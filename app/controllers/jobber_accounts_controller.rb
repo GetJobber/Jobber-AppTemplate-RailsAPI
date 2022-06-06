@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class JobberAccountsController < ApplicationController
-  before_action :set_jobber_account, only: [:show, :update, :destroy]
+  before_action :set_jobber_account, only: [:show, :update, :destroy, :jobber_account_name]
 
   # GET /jobber_accounts
   def index
@@ -40,11 +40,16 @@ class JobberAccountsController < ApplicationController
     @jobber_account.destroy
   end
 
+  def jobber_account_name
+    render(json: { jobber_account_name: @jobber_account.name })
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_jobber_account
-    @jobber_account = JobberAccount.find(params[:id])
+    jobber_account_id = request.cookies["jobber_account_id"]
+    @jobber_account = JobberAccount.find_by(jobber_id: jobber_account_id)
   end
 
   # Only allow a list of trusted parameters through.
