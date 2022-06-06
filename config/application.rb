@@ -28,6 +28,7 @@ module JobberAppTemplateRailsApi
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults(6.1)
+    config.autoload_paths += ["#{Rails.root}/app/errors"]
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -45,7 +46,6 @@ module JobberAppTemplateRailsApi
     config.x.jobber.client_id = ENV["JOBBER_CLIENT_ID"]
     config.x.jobber.client_secret = ENV["JOBBER_CLIENT_SECRET"]
     config.x.jobber.api_url = ENV["JOBBER_API_URL"]
-    config.x.jobber.redirect_uri = ENV["JOBBER_REDIRECT_URI"]
   end
 
   # Configure GraphQL endpoint using the basic HTTP network adapter.
