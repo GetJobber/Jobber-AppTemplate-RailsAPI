@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :jobber_accounts
+
+  get "/heartbeat", to: "application#heartbeat"
+  post "/request_access_token", to: "auth#request_oauth2_access_token"
 end
