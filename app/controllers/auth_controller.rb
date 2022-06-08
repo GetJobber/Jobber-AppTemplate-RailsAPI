@@ -14,7 +14,6 @@ class AuthController < ApplicationController
       :jobber_account_id,
       {
         value: account.jobber_id,
-        expires: tokens[:expires_at],
         httponly: true,
         secure: Rails.env.production?,
       }
