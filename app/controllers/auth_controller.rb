@@ -19,7 +19,12 @@ class AuthController < ApplicationController
         secure: Rails.env.production?,
       }
     )
-    render(status: :ok)
+    head(:ok)
+  end
+
+  def logout
+    response.delete_cookie("jobber_account_id")
+    head(:ok)
   end
 
   private
