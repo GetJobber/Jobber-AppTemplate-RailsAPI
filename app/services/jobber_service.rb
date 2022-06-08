@@ -13,20 +13,8 @@ class JobberService
     result
   end
 
-  def execute_paginated_query(
-    token,
-    query,
-    variables,
-    resource_names,
-    paginated_results = [],
-    expected_cost: nil
-  )
-    result = execute_query(
-      token,
-      query,
-      variables,
-      expected_cost: expected_cost
-    )
+  def execute_paginated_query(token, query, variables, resource_names, paginated_results = [], expected_cost: nil)
+    result = execute_query(token, query, variables, expected_cost: expected_cost)
 
     result = result["data"]
 
