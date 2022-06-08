@@ -18,7 +18,7 @@ class AuthController < ApplicationController
         secure: Rails.env.production?,
       }
     )
-    head(:ok)
+    render(json: { accountName: account.name })
   end
 
   def logout
