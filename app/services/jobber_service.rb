@@ -67,6 +67,8 @@ class JobberService
   end
 
   def refresh_access_token(account)
+    raise Exceptions::AuthorizationException if account.jobber_access_token.blank?
+
     credentials = {
       token_type: "bearer",
       access_token: account.jobber_access_token,
