@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-class ClientsController < ApplicationController
+class ClientsController < AuthController
   include Graphql::Queries::Clients
 
-  before_action :set_jobber_account, only: [:index]
+  before_action :validate_user_session
 
   def index
     token = @jobber_account.jobber_access_token
@@ -15,19 +15,7 @@ class ClientsController < ApplicationController
     )
 
     render(json: { clients: clients }, status: :ok)
-  rescue => error
+  rescue Exceptions::GraphQLQueryError => error
     render(json: { error: "#{error.class}: #{error.message}" }, status: :internal_server_error)
-  end
-
-  private
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_jobber_account
-    jobber_account_id = request.cookies["jobber_account_id"]
-    @jobber_account = JobberAccount.find_by(jobber_id: jobber_account_id)
-  end
-
-  def jobber_service
-    JobberService.new
   end
 end

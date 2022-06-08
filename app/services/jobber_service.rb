@@ -78,6 +78,23 @@ class JobberService
     account
   end
 
+  def refresh_access_token(account)
+    credentials = {
+      token_type: "bearer",
+      access_token: account.jobber_access_token,
+      expires_at: account.jobber_access_token_expired_by,
+      refresh_token: account.jobber_refresh_token,
+    }
+
+    tokens = OAuth2::AccessToken.from_hash(client, credentials)
+    tokens = tokens.refresh!
+    return if tokens.nil?
+
+    tokens = tokens.to_hash
+    tokens[:expires_at] = Time.at(JWT.decode(tokens[:access_token], nil, false).first["exp"]).utc.to_time
+    tokens
+  end
+
   private
 
   def client
