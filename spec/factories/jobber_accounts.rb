@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :jobber_account do
-    jobber_id { "MyString" }
-    name { "MyString" }
-    jobber_access_token { "MyString" }
-    jobber_access_token_expired_by { "2022-06-03 14:04:59" }
-    jobber_refresh_token { "MyString" }
+    jobber_id { Faker::Internet.uuid }
+    name { Faker::Name.unique.name }
+    jobber_access_token { "jobber access token" }
+    jobber_access_token_expired_by { Time.now + 10.minutes }
+    jobber_refresh_token { "jobber refresh token" }
   end
 end
