@@ -16,6 +16,7 @@ class AuthController < ApplicationController
         value: account.jobber_id,
         httponly: true,
         secure: Rails.env.production?,
+        same_site: Rails.env.production? ? :none : nil,
       }
     )
     render(json: { accountName: account.name })
