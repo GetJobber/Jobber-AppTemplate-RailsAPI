@@ -7,7 +7,7 @@ RSpec.describe(JobberAccountsController, type: :controller) do
   let(:result) { JSON.parse(response.body) }
 
   before do
-    allow(controller).to(receive(:jobber_account_id).and_return(jobber_account.jobber_id))
+    allow(request).to(receive(:cookies).and_return({ jobber_account_id: jobber_account.jobber_id }))
   end
 
   describe "#jobber_account_name" do
