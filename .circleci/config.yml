@@ -1,0 +1,84 @@
+# prettier-ignore
+
+version: 2.1
+
+orbs:
+  ruby: circleci/ruby@1.6.0
+
+references:
+  pg_creds: &pg_creds
+    PGHOST: &pghost localhost
+    PGUSER: &pguser postgres
+    PGPASSWORD: &pgpassword "docker"
+
+  docker_ruby_base: &docker_ruby_base
+    image: circleci/ruby:3.0.1
+
+  docker_postgres_base: &docker_postgres_base
+    image: circleci/postgres:13.2-ram
+    environment:
+      POSTGRES_DB: jobber_apptemplate_railsapi_test
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "docker"
+
+  docker_redis_base: &docker_redis_base
+    image: circleci/redis
+
+jobs:
+  checkout_code:
+    docker:
+      - <<: *docker_ruby_base
+    steps:
+      - checkout
+
+  install_ruby_dependencies:
+    docker:
+      - <<: *docker_ruby_base
+    steps:
+      - checkout
+      - ruby/install-deps
+
+  lint_rubocop:
+    docker:
+      - <<: *docker_ruby_base
+    steps:
+      - checkout
+      - ruby/install-deps
+      - ruby/rubocop-check
+
+  test_rspec:
+    docker:
+      - <<: *docker_ruby_base
+      - <<: *docker_postgres_base
+      - <<: *docker_redis_base
+    environment:
+      BUNDLE_JOBS: "3"
+      BUNDLE_RETRY: "3"
+      <<: *pg_creds
+      RAILS_ENV: test
+    steps:
+      - checkout
+      - ruby/install-deps
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run:
+          name: Database setup
+          command: bundle exec rails db:schema:load --trace
+      - ruby/rspec-test
+
+workflows:
+  version: 2
+  lint_and_test:
+    jobs:
+      - checkout_code
+      - install_ruby_dependencies:
+          requires:
+            - checkout_code
+      - lint_rubocop:
+          requires:
+            - install_ruby_dependencies
+      - test_rspec:
+          requires:
+            - install_ruby_dependencies
+            - lint_rubocop

@@ -43,7 +43,7 @@ RSpec.describe(AuthController, type: :controller) do
         expect(result_account.jobber_id).to(eq(account_id))
         expect(result_account.name).to(eq(account_name))
         expect(result_account.jobber_access_token).to(eq(tokens[:access_token]))
-        expect(result_account.jobber_access_token_expired_by).to(eq(tokens[:expires_at]))
+        expect(result_account.jobber_access_token_expired_by.utc.to_s).to(eq(tokens[:expires_at].utc.to_s))
         expect(result_account.jobber_refresh_token).to(eq(tokens[:refresh_token]))
       end
 
@@ -63,7 +63,7 @@ RSpec.describe(AuthController, type: :controller) do
         expect(result_account.jobber_id).to(eq(account_id))
         expect(result_account.name).to(eq(account_name))
         expect(result_account.jobber_access_token).to(eq(tokens[:access_token]))
-        expect(result_account.jobber_access_token_expired_by).to(eq(tokens[:expires_at]))
+        expect(result_account.jobber_access_token_expired_by.utc.to_s).to(eq(tokens[:expires_at].utc.to_s))
         expect(result_account.jobber_refresh_token).to(eq(tokens[:refresh_token]))
       end
 
