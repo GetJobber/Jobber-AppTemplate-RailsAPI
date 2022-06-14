@@ -39,6 +39,7 @@ group :development, :test do
   gem "dotenv-rails"
   # RSpec testing framework for Ruby on Rails
   gem "rspec-rails", "~> 5.0.0"
+  gem "rspec_junit_formatter"
   # Rails integration for factory_bot
   gem "factory_bot_rails"
   gem "pry-rails"
