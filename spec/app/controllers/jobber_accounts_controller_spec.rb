@@ -18,7 +18,7 @@ RSpec.describe(JobberAccountsController, type: :controller) do
     end
 
     it "should return the account name" do
-      expect(result["jobber_account_name"]).to(eq(jobber_account.name))
+      expect(result["accountName"]).to(eq(jobber_account.name))
     end
   end
 end
