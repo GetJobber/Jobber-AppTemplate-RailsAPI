@@ -4,8 +4,6 @@
 
 The primary objective of this Ruby on Rails API template is to provide a starting point to integrate your app with [Jobber](https://getjobber.com).
 
-[Demo](https://jobber-app-template-rails-api.herokuapp.com/)
-
 ## Getting Started
 
 ### Prerequisites 🛠️
