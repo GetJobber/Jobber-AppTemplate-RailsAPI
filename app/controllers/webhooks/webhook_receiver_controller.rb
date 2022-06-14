@@ -19,14 +19,13 @@ module Webhooks
 
     private
 
-    def jobber_service
-      JobberService.new
-    end
-
     def disconnect
+      account_id = params[:data][:webHookEvent][:accountId]
+      raise if account_id.blank?
+
       response.delete_cookie("jobber_account_id")
 
-      account = JobberAccount.find_by(jobber_id: params[:data][:webHookEvent][:accountId])
+      account = JobberAccount.find_by(jobber_id: account_id)
       return if account.blank?
 
       account.clear_jobber_credentials!

@@ -11,6 +11,6 @@ class ClientsController < AuthController
 
     render(json: { clients: clients }, status: :ok)
   rescue Exceptions::GraphQLQueryError => error
-    render(json: { error: "#{error.class}: #{error.message}" }, status: :internal_server_error)
+    render(json: { message: "#{error.class}: #{error.message}" }, status: :internal_server_error)
   end
 end
