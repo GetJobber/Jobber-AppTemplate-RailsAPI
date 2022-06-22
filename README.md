@@ -234,6 +234,9 @@ Which should look something like this on the frontend:
     - [https://developer.getjobber.com/](https://developer.getjobber.com/)
   - Create new app:
     - Follow the docs to get started: [https://developer.getjobber.com/docs](https://developer.getjobber.com/docs)
+    - Your app must have (as a minimum) read access to *Clients* and *Users* under the Scopes section, in order for this template to work:
+      <img width="1728" alt="Screen Shot 2022-06-22 at 13 27 50" src="https://user-images.githubusercontent.com/804175/175111860-ad44f70d-5d33-4334-b5ff-afd677c22a04.png">
+
 
 ### Setup
 
