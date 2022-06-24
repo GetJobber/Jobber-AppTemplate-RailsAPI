@@ -21,6 +21,7 @@ The primary objective of this Ruby on Rails API template is to provide a startin
 - [Deployment](#deployment)
   - [Deploying with Heroku](#deploying-with-heroku)
 - [Learn More](#learn-more)
+- [Need help of have an idea?](#need-help-or-have-an-idea)
 - [License](#license)
 
 ## What is this APP for?
@@ -308,6 +309,10 @@ Checkout [Jobber's API documentation](https://developer.getjobber.com/docs/) for
 You can learn more about Ruby on Rails API mode in the [documentation](https://guides.rubyonrails.org/api_app.html).
 
 For more information on Heroku, visit the [Heroku Dev Center](https://devcenter.heroku.com/) or the [Getting started on Heroku with Rails 6](https://devcenter.heroku.com/articles/getting-started-with-rails6) for more specific content on Rails.
+
+## Need help or have and idea?
+
+Please follow one of these [issue templates](https://github.com/GetJobber/Jobber-AppTemplate-RailsAPI/issues/new/choose) if you'd like to submit a bug or request a feature.
 
 ## License
 
