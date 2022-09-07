@@ -267,7 +267,9 @@ Which should look something like this on the frontend:
 
 ### Running the app
 
-- `rails s`
+- `rails s -p 4000` 
+
+note: when running the `React template` and `Rails API` concurrently, the `Rails API` should be running on port `4000` and the `React template` must be runnning on port `3000`
 
 ## Making GraphQL requests
 
