@@ -10,20 +10,14 @@ class AuthController < ApplicationController
 
     return if account.blank?
 
-    response.set_cookie(
-      :jobber_account_id,
-      {
-        value: account.jobber_id,
-        httponly: true,
-        secure: Rails.env.production?,
-        same_site: Rails.env.production? ? :none : nil,
-      }
-    )
+    session[:account_id] = account.jobber_id
+
     render(json: { accountName: account.name })
   end
 
   def logout
-    response.delete_cookie("jobber_account_id")
+    response.delete_cookie("_session_id")
+    reset_session
     head(:ok)
   end
 
@@ -34,7 +28,7 @@ class AuthController < ApplicationController
   end
 
   def jobber_account_id
-    request.cookies["jobber_account_id"]
+    session[:account_id]
   end
 
   def set_jobber_account
