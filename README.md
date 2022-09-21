@@ -267,7 +267,7 @@ Which should look something like this on the frontend:
 
 ### Running the app
 
-- `rails s`
+- `rails s -p 4000`
 
 ## Making GraphQL requests
 
