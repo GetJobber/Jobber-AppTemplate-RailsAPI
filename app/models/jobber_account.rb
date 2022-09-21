@@ -5,7 +5,7 @@ class JobberAccount < ApplicationRecord
     update!(
       jobber_access_token: nil,
       jobber_access_token_expired_by: nil,
-      jobber_refresh_token: nil
+      jobber_refresh_token: nil,
     )
   end
 
@@ -26,7 +26,7 @@ class JobberAccount < ApplicationRecord
     update!(
       jobber_access_token: tokens[:access_token],
       jobber_access_token_expired_by: tokens[:expires_at],
-      jobber_refresh_token: tokens[:refresh_token]
+      jobber_refresh_token: tokens[:refresh_token],
     )
     self
   end

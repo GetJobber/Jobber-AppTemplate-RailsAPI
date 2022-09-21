@@ -53,7 +53,7 @@ RSpec.describe(JobberService, type: :service) do
 
     before do
       allow(JobberAppTemplateRailsApi::Client).to(
-        receive(:query).with(query, variables: variables, context: context).and_return(query_result)
+        receive(:query).with(query, variables: variables, context: context).and_return(query_result),
       )
 
       result
@@ -95,10 +95,10 @@ RSpec.describe(JobberService, type: :service) do
 
     before do
       allow(JobberAppTemplateRailsApi::Client).to(
-        receive(:query).with(query, variables: variables, context: context).and_return(query_result)
+        receive(:query).with(query, variables: variables, context: context).and_return(query_result),
       )
       allow(JobberAppTemplateRailsApi::Client).to(
-        receive(:query).with(query, variables: variables2, context: context).and_return(query_result2)
+        receive(:query).with(query, variables: variables2, context: context).and_return(query_result2),
       )
     end
 
