@@ -7,7 +7,7 @@ RSpec.describe(ClientsController, type: :controller) do
   let(:result) { JSON.parse(response.body) }
 
   before do
-    allow(request).to(receive(:cookies).and_return({ jobber_account_id: jobber_account.jobber_id }))
+    allow(request).to(receive(:session).and_return({ account_id: jobber_account.jobber_id }))
   end
 
   describe "#index" do
