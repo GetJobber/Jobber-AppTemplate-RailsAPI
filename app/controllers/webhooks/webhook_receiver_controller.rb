@@ -3,6 +3,7 @@
 module Webhooks
   class WebhookReceiverController < ApplicationController
     before_action :webhook_source_validation
+    skip_before_action :validate_session
 
     def index
       case params[:data][:webHookEvent][:topic]
