@@ -80,6 +80,7 @@ RSpec.describe(AuthController, type: :controller) do
 
     it "clears account_id session" do
       expect(session["account_id"]).to(be_nil)
+      expect(response).to(have_http_status(:ok))
     end
   end
 end
