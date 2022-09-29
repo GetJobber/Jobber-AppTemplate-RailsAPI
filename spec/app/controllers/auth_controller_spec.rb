@@ -48,6 +48,7 @@ RSpec.describe(AuthController, type: :controller) do
       end
 
       it "creates a session" do
+        expect(session["account_id"]).not_to(be_nil)
         expect(session["account_id"]).to(eq(account_id))
       end
     end
@@ -68,6 +69,7 @@ RSpec.describe(AuthController, type: :controller) do
       end
 
       it "sets account_id session" do
+        expect(session["account_id"]).not_to(be_nil)
         expect(session["account_id"]).to(eq(account_id))
       end
     end
@@ -78,59 +80,6 @@ RSpec.describe(AuthController, type: :controller) do
 
     it "clears account_id session" do
       expect(session["account_id"]).to(be_nil)
-    end
-  end
-
-  describe "#validade_user_session" do
-    let(:result) { described_class.new.send(:validate_user_session) }
-
-    context "when there is no session" do
-      before do
-        allow_any_instance_of(AuthController).to(receive(:jobber_account_id).and_return(nil))
-        allow_any_instance_of(AuthController).to(receive(:render).and_return("Unauthorized"))
-      end
-
-      it "It returns Unauthorized" do
-        expect(result).to(eq("Unauthorized"))
-      end
-    end
-
-    context "when session is invalid" do
-      before do
-        allow_any_instance_of(AuthController).to(receive(:jobber_account_id).and_return("1234"))
-        allow_any_instance_of(AuthController).to(receive(:render).and_return("Unauthorized"))
-      end
-
-      it "It returns Unauthorized" do
-        expect(result).to(eq("Unauthorized"))
-      end
-    end
-
-    context "when session has a valid jobber_id" do
-      before do
-        allow_any_instance_of(AuthController).to(receive(:jobber_account_id).and_return(jobber_account.jobber_id))
-      end
-
-      context "when access token is valid" do
-        it "does not call jobber_account refresh_jobber_access_token! method" do
-          expect_any_instance_of(JobberAccount).to_not(receive(:refresh_jobber_access_token!))
-          result
-        end
-      end
-
-      context "when access token is expired" do
-        before do
-          allow_any_instance_of(JobberAccount).to(receive(:refresh_jobber_access_token!))
-
-          jobber_account.jobber_access_token_expired_by = Time.now - 10.minutes
-          jobber_account.save!
-        end
-
-        it "calls jobber_account refresh_jobber_access_token! method" do
-          expect_any_instance_of(JobberAccount).to(receive(:refresh_jobber_access_token!))
-          result
-        end
-      end
     end
   end
 end

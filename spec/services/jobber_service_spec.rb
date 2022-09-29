@@ -302,7 +302,7 @@ RSpec.describe(JobberService, type: :service) do
         }
       end
 
-      it "it sleeps" do
+      it "sleeps" do
         expect_any_instance_of(described_class).to(receive(:sleep).with(sleep_time))
 
         result
@@ -310,7 +310,7 @@ RSpec.describe(JobberService, type: :service) do
     end
 
     context "when currently available points are above 60% of maximum available points" do
-      it "it does not sleep" do
+      it "does not sleep" do
         expect_any_instance_of(described_class).not_to(receive(:sleep).with(sleep_time))
 
         result
