@@ -16,7 +16,6 @@ class AuthController < ApplicationController
   end
 
   def logout
-    response.delete_cookie("_session_id")
     reset_session
     head(:ok)
   end
