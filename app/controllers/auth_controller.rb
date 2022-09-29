@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AuthController < ApplicationController
-  skip_before_action :validate_session, except: [:logout]
+  skip_before_action :validate_session
 
   def request_oauth2_access_token
     tokens = jobber_service.create_oauth2_access_token(params[:code].to_s)
@@ -19,9 +19,6 @@ class AuthController < ApplicationController
 
   def logout
     reset_session
-
-    binding.pry
-
     head(:ok)
   end
 
