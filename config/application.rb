@@ -43,6 +43,9 @@ module JobberAppTemplateRailsApi
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
+    config.middleware.use(ActionDispatch::Cookies)
+    config.middleware.use(ActionDispatch::Session::CookieStore)
+
     config.x.jobber.client_id = ENV["JOBBER_CLIENT_ID"]
     config.x.jobber.client_secret = ENV["JOBBER_CLIENT_SECRET"]
     config.x.jobber.api_url = ENV["JOBBER_API_URL"]

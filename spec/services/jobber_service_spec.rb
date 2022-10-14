@@ -53,7 +53,7 @@ RSpec.describe(JobberService, type: :service) do
 
     before do
       allow(JobberAppTemplateRailsApi::Client).to(
-        receive(:query).with(query, variables: variables, context: context).and_return(query_result)
+        receive(:query).with(query, variables: variables, context: context).and_return(query_result),
       )
 
       result
@@ -95,10 +95,10 @@ RSpec.describe(JobberService, type: :service) do
 
     before do
       allow(JobberAppTemplateRailsApi::Client).to(
-        receive(:query).with(query, variables: variables, context: context).and_return(query_result)
+        receive(:query).with(query, variables: variables, context: context).and_return(query_result),
       )
       allow(JobberAppTemplateRailsApi::Client).to(
-        receive(:query).with(query, variables: variables2, context: context).and_return(query_result2)
+        receive(:query).with(query, variables: variables2, context: context).and_return(query_result2),
       )
     end
 
@@ -302,7 +302,7 @@ RSpec.describe(JobberService, type: :service) do
         }
       end
 
-      it "it sleeps" do
+      it "sleeps" do
         expect_any_instance_of(described_class).to(receive(:sleep).with(sleep_time))
 
         result
@@ -310,7 +310,7 @@ RSpec.describe(JobberService, type: :service) do
     end
 
     context "when currently available points are above 60% of maximum available points" do
-      it "it does not sleep" do
+      it "does not sleep" do
         expect_any_instance_of(described_class).not_to(receive(:sleep).with(sleep_time))
 
         result

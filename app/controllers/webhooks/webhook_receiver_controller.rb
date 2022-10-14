@@ -3,6 +3,7 @@
 module Webhooks
   class WebhookReceiverController < ApplicationController
     before_action :webhook_source_validation
+    skip_before_action :validate_session
 
     def index
       case params[:data][:webHookEvent][:topic]
@@ -36,13 +37,13 @@ module Webhooks
         OpenSSL::HMAC.digest(
           "sha256",
           Rails.configuration.x.jobber.client_secret || "",
-          ActiveSupport::JSON.encode({ data: params[:data] })
-        )
+          ActiveSupport::JSON.encode({ data: params[:data] }),
+        ),
       )
 
       head(:unauthorized) unless ActiveSupport::SecurityUtils.secure_compare(
         calculated_hmac,
-        request.headers["X-Jobber-Hmac-SHA256"]
+        request.headers["X-Jobber-Hmac-SHA256"],
       )
     rescue StandardError
       head(:unauthorized)
