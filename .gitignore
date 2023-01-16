@@ -39,3 +39,6 @@
 
 # Ignore coverage data
 coverage
+
+# Rubymine IDE
+.idea/*
