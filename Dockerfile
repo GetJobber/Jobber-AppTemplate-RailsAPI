@@ -1,4 +1,4 @@
-FROM ruby:3.0.1-slim
+FROM ruby:3.3.9-slim
 
 ENV BUNDLE_VERSION=2.2.32
 
